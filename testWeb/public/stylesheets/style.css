@@ -25,7 +25,7 @@ a {
   width: 300px;
   height: 100px;
   overflow: auto;
-  margin-buttom: 10px;
+  margin-bottom: 10px;
 }
 
 #logs {
@@ -38,7 +38,7 @@ a {
 
 .bingo-board {
   border-left: 1px solid gray;
-  boader-top: 1px solid gray;
+  border-top: 1px solid gray;
   border-spacing: 0px;
   margin-bottom: 20px;
   text-align: center;
