@@ -1,49 +1,49 @@
 extends layout
 
-h1= title
-block header
-  p
-    font(color='DodgerBlue') #{username} | 님환영합니다.
+  h1= title
+  block header
+    p
+      font(color='DodgerBlue') #{username} | 님환영합니다.
  
-block content
-  #game
-    #bingo
-     table.bingo-board
-      tr
-       td
-       td
-       td
-       td
-       td
-      tr
-       td
-       td
-       td
-       td
-       td
-      tr
-       td
-       td
-       td
-       td
-       td
-      tr
-       td
-       td
-       td
-       td
-       td
-      tr
-       td
-       td
-       td
-       td
-       td
+  block content
+    #game
+      #bingo
+      table.bingo-board
+        tr
+         td
+         td
+         td
+         td
+         td
+        tr
+         td
+         td
+         td
+         td
+         td
+        tr
+         td
+         td
+         td
+         td
+         td
+        tr
+         td
+         td
+         td
+         td
+         td
+        tr
+         td
+         td
+         td
+         td
+         td
 
-block content
-  #user
-    #list
-    #logs
-    input#start_button(type='button', value='Game Start!')
-    input#username(type='hidden', value=username)
+  block content
+    #user
+      #list
+      #logs
+      input#start_button(type='button', value='Game Start!')
+      input#username(type='hidden', value=username)
 
