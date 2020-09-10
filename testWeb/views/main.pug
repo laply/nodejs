@@ -1,10 +1,11 @@
 extends layout
 
-block content
+block header
  h1= title
  p
   font(color='DodgerBlue') #{username} | 님환영합니다.
- 
+
+block content 
  #game
   #bingo
    table.bingo-board
