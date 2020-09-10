@@ -57,7 +57,7 @@ io.on('connection', function(socket){
  		console.log('user disconnected :', socket.id, socket.username);
 
 		for (var i=0; i<user_count; i++){
-			if(users[i].id == socket.id) delete user[i];
+			if(users[i].id == socket.id) delete users[i];
 		}
 
 		user_count--;
