@@ -1,13 +1,12 @@
 extends layout
 
-block content
- h1= title
- block header
+h1= title
+block header
   p
     font(color='DodgerBlue') #{username} | 님환영합니다.
  
- block contents
-   #game
+block content
+  #game
     #bingo
      table.bingo-board
       tr
@@ -40,10 +39,11 @@ block content
        td
        td
        td
-  
-     #user
-      #list
-      #logs
-      input#start_button(type='button', value='Game Start!')
-      input#username(type='hidden', value=username)
+
+block content
+  #user
+    #list
+    #logs
+    input#start_button(type='button', value='Game Start!')
+    input#username(type='hidden', value=username)
 
