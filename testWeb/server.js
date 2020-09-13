@@ -8,10 +8,6 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/js', express.static(__dirname+'/node_modules/bootstrap/dist'));
-app.use('/js', express.static(__dirname + '/node_modules/jquery/dist')); // redirect JS jQuery 
-app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist')); // redirect CSS bootstrap
-
 app.get('/', (req, res) => {
 	res.render('main', {title: 'online bingo',
 	username: req.query.username});
@@ -22,6 +18,7 @@ var user_count = 0;
 var turn_count = 0;
 
 io.on('connection', function(socket){
+	
 	console.log('user connected: ', socket.id);
 
 	socket.on('join', function (data){
@@ -41,7 +38,7 @@ io.on('connection', function(socket){
 		socket.broadcast.emit("game_started", data);
 		users[turn_count].turn = true;
 
-		io.emit('update_users', users, user_count);
+		io.emit('update_users', users);
 
 	});
 
