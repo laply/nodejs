@@ -68,10 +68,8 @@ var bingo = {
   });
 },
 
-	// init 끝
- select_num: function (obj, socket) {
+  select_num: function (obj, socket) {
 	if(this.is_my_turn && !$(obj).attr("checked")) {
-		//send num to other players
 	socket.emit("select", { username: $('#username').val(), num: $(obj).text() });		
 	this.check_num(obj);
 	this.is_my_turn = false;
@@ -101,6 +99,7 @@ var bingo = {
 		var self = this;
 		$("#list").empty();
 		console.log(data);
+		
 		$.each(data, function (key, value) {
 			var turn = "(-) ";
 			if(value.turn === true) {
