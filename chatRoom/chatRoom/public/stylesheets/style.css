@@ -6,16 +6,22 @@
 }
 
 #chatLog {
-    flex-grow: 8;
+    width: 80%;
+}
+
+#user {
+    width: 20%;
+    border: 1px solid gainsboro;
 }
 
 .btn.user-head {
     width: 100%;
+    background-color: wheat;
 }
 
-#user {
-    flex-grow: 1;
-    border: 1px solid black;
+#chat {
+    display: flex;
+    justify-content: center;
 }
 
 #name {
