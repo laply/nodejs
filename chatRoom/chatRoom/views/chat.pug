@@ -1,0 +1,73 @@
+doctype 5
+html
+    head
+        title= 'Chat'
+        link(rel='stylesheet', href='/stylesheets/style.css')
+        script(src='/socket.io/socket.io.js')
+        script(src='//code.jquery.com/jquery-1.11.1.js')
+
+    body
+        center
+            div
+                button.btn.btn-info(type='button') Chat Room
+            div.flex-container
+                textarea#chatLog.form-control(readonly='')
+                div#user 
+                    button.btn.user-head(type='button') User
+                    div#userLog 
+            form#chat
+                input#name.form-control(type='text')
+                input#message.form-control(type='text')
+                button.btn.btn-primary(type='submit') Enter
+            #box.box
+        script. 
+            var socket = io();
+            var userId;
+
+            $('#chat').on('submit', function(e){
+            socket.emit('send message', userId, $('#name').val(), $('#message').val());
+                $('#message').val('');
+                $('#message').focus();
+                e.preventDefault();
+            });
+            
+            socket.on('new_connect', function(_id, thisName, names){
+                userId = _id;
+                $('#chatLog').append('<알림> ' + thisName + '님이 채팅창에 접속했습니다.\n');
+                changeUserLog(names);
+            });
+
+
+            function changeUserLog(names){
+                for(var key in names){
+                    $('#userLog').append('<p id=' + key + '>' + names[key] + '</p>');
+                }
+            }
+            socket.on('new_connect_user', function(_id, name){
+                $('#chatLog').append('<알림> ' + name + '님이 채팅창에 접속했습니다.\n');
+                $('#userLog').append('<p id=' + _id + '>' + name + '</p>');
+
+            });
+
+            socket.on('new_disconnect', function(id, name, names){
+                console.log(names);
+                $('#userLog').empty();
+                $('#chatLog').append('<알림> ' + name + '님이 채팅창에 떠났습니다.\n');
+                changeUserLog(names);
+            });
+
+            socket.on('replace name', function(names){
+                console.log(names);
+                $('#userLog').empty();
+                changeUserLog(names);
+            });
+
+
+            socket.on('create name', function(id, name){
+                $('#name').val(name);
+            });
+
+            socket.on('receive message', function(msg){ 
+                $('#chatLog').append(msg+'\n');
+                $('#chatLog').scrollTop($('#chatLog')[0].scrollHeight);
+            });
