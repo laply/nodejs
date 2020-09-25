@@ -1,18 +1,26 @@
 var bingo = {
     is_my_turn: Boolean,
     socket: null,
+    bingoNum: 0,
+    bingoBoard: [],
 
     init: function(socket) {
         var self = this;
         var user_cnt = 0;
-
+        var notEnoughUserMessage = " <알림> 최소 2명부터 게임이 가능합니다.";
+        var gameIsEnd = false;
         this.is_my_turn = false;
+        this.bingoNum = 0;
+        this.bingoBoard = self.make_init_bingoBoard();
+
+        $("#reset_button").hide();
 
         socket = io();
 
-        socket.on("check_number", function(data) {
-            self.where_is_it(data.num);
-            self.print_msg(data.username + "님이 '" + data.num + "'을 선택했습니다.");
+        socket.on("update_users", function(data, user_count) {
+            console.log(data);
+            user_cnt = user_count;
+            self.update_userlist(data, socket);
         });
 
         socket.on("game_started", function(data) {
@@ -21,18 +29,23 @@ var bingo = {
             $("#start_button").hide();
         });
 
-
-        socket.on("update_users", function(data, user_count) {
-            console.log(data);
-            user_cnt = user_count;
-            self.update_userlist(data, socket);
+        socket.on("check_number", function(data) {
+            self.where_is_it(data.num);
+            self.print_msg(data.username + "님이 '" + data.num + "'을 선택했습니다.");
         });
 
-        socket.on("connect", function() {
-            socket.emit("join", { username: $('#username').val() });
+        socket.on("winner", function(name) {
+            self.print_msg("<끝> winner is " + name);
+            $("#reset_button").show();
+            gameIsEnd = true;
+        });
+
+        socket.on("game_reset", function() {
+            self.init();
         });
 
         var numbers = [];
+
         for (var i = 1; i <= 25; i++) {
             numbers.push(i);
         }
@@ -45,12 +58,14 @@ var bingo = {
 
         });
 
-        $("table.bingo-board td").each(function(i) {
+        $("table.bingo-board td").each(function() {
             $(this).html(numbers[i]);
 
             $(this).click(function() {
-                if (user_cnt == 1) {
-                    self.print_msg(" <알림> 최소 2명부터 게임이 가능합니다.");
+                if (gameIsEnd) {
+                    self.print_msg("게임이 끝났습니다.");
+                } else if (user_cnt == 1) {
+                    self.print_msg(notEnoughUserMessage);
                 } else {
                     self.select_num(this, socket);
                 }
@@ -59,13 +74,30 @@ var bingo = {
 
         $("#start_button").click(function() {
             if (user_cnt == 1) {
-                self.print_msg("<알림> 최소 2명부터 게임이 가능합니다.");
+                self.print_msg(notEnoughUserMessage);
             } else {
                 socket.emit('game_start', { username: $('#username').val() });
                 Self.print_msg("<알림> 게임을 시작했습니다.");
                 $("#start_button").hide();
             }
         });
+
+        $("#reset_button").click(function() {
+            socket.emit('game_reset');
+        });
+
+    },
+
+    make_init_bingoBoard: function() {
+        var bingoBoard = []
+        for (var i = 0; i < 5; i++) {
+            var row = [];
+            for (var j = 0; j < 5; j++) {
+                row.push(0);
+            }
+            bingoBoard.push(row);
+        }
+        return bingoBoard;
     },
 
     select_num: function(obj, socket) {
@@ -89,10 +121,57 @@ var bingo = {
         });
     },
 
+    check_bingo: function(obj) {
+        var pos = $(obj).attr("id").split(".");
+        this.bingoBoard[pos[0]][pos[1]] = 1;
+        var checkPoint = {
+            column: 0,
+            row: 0,
+            diagonal1: 0,
+            diagonal2: 0,
+        }
+
+        for (var i = 0; i < 5; i++) {
+            if (this.bingoBoard[pos[0]][i] == 1) {
+                checkPoint.column += 1;
+            }
+
+            if (this.bingoBoard[i][pos[1]] == 1) {
+                checkPoint.row += 1;
+            }
+
+            if (pos[0] == pos[1]) {
+                if (this.bingoBoard[i][i] == 1) {
+                    checkPoint.diagonal1 += 1
+                }
+            }
+
+            if (pos[0] + pos[1] == 4) {
+                if (this.bingoBoard[i][4 - i] == 1) {
+                    checkPoint.diagonal2 += 1
+                }
+            }
+        }
+
+        for (var data in checkPoint) {
+            if (checkPoint[data] == 5) {
+                this.bingoNum += 1;
+            }
+        }
+
+        if (this.bingoNum == 3) {
+            this.game_end();
+        }
+    },
+    game_end: function() {
+        socket.emit('game_end', { username: $('#username').val() });
+    },
+
     check_num: function(obj) {
         $(obj).css("text-decoration", "line-through");
         $(obj).css("color", "lightgray");
         $(obj).attr("checked", true);
+        this.check_bingo(obj);
     },
 
     update_userlist: function(data, this_socket) {
