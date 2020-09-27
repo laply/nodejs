@@ -1,0 +1,64 @@
+body {
+  padding: 50px;
+  font: 12px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+
+#main{
+  margin-left: auto;
+  margin-right: auto;
+  width: 800px;
+}
+
+#title {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+#write{
+  border:1px solid #ccc;
+  height: 140px;
+  margin-bottom: 10px;
+  padding: 10px;
+  min-height: 100%;
+  text-align:right;
+  background-color: gainsboro;
+}
+
+.left {
+  float: left;
+  text-align: center;
+}
+.right{
+  float: right;
+}
+
+#write textarea{
+  width: 630px;
+  height: 110px;
+  float: right;
+  margin-bottom: 5px;
+}
+
+.text_input{
+  width: 100%;
+  height: 50px;
+}
+
+#memo {
+  border: 1px solid #ddddaa;
+  background-color: lightBlue;
+}
+
+#memo .item{
+  margin:10px;
+  clear:both;
+}
+#memo .author{
+  width: 769px;
+  padding: 5px;
+  border: 1px solid #ddddcc;
+}
