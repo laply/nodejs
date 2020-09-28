@@ -116,13 +116,37 @@ configured
 suspend
 
 
-Attached (연결)
-powered ()
+Attached ( 연결 )
+Powered ( 전원 )
+<---------------------- Bus를 통한 Reset 신호
+Defalut ( Default Address(00H) 상태 )
+Address <----- Host로 부터 Address를 할당받은 상태
+configured (configuration Device 기능이 동작할 수 있는 상태 )
+suspend (일정시간 동안 bus traffic이 없을때 진행되는 상태 // 활성화 시 빠져나와야함)
+
+ 
+버스가 Reset state에 들어가려면 D+와 D-가 VIL(max) 보다 작은 상태로 10ms 이상 만들어 주면 Reset
+
+1. USB 연결한다. -> Attached , Powered
+2. Reset! 신호를 받은 후(D+,D-라인이 10ms 동안 LOW) 자신의 address를 00H로 만든다. -> Default (pipe를 초기화하고 모든데이터 지워야함)
+3. 주소를 받는다. -> Addressed
+4. Configuration을 받는다. -> Configured
+5. 준비 끝
 
 
+reset 이후 
+Host > setup Token > device
+-- 주소 설정을 하라는 토큰 
 
+PID       ADDRESS  ENDPOINT 
+00101101B 0000000B 0000B xxxxxB
 
+Host > data Packet > device
+-- data 패킷 DATA0, DATA1
+PID       DATA     CRC16 
+11000011B 0~1023byte 2Byte
 
-
-
-
+setup Data의 포맷
+Default Control Pipe를 통해 응답되아야함 
+== EP0
+총 8Byte
