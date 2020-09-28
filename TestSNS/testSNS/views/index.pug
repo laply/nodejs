@@ -1,0 +1,16 @@
+extends layout
+
+block content
+  #main 
+    #title SNS service test
+    #message
+      .left
+        img.photo(src=picture)
+        input#author.author(type='text', value=name. readonly)
+      .right
+        textarea(placeholder='enter text')
+        br 
+        input#write_button(type='button', value='write')
+    #wall
+      .item
+
