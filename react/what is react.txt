@@ -1,0 +1,35 @@
+frontend 라이브러리 
+
+[React, Angular, Vue]
+
+facebook 이 만든 사용자 UI 구축을 위한 라이브러리 
+
+특징
+1. JSX 문법
+자바스크립트 안에서 HTML 문법을 사용해서 view를 구성할 수 있게 도와주는
+자바스크립트 문법
+
+class HelloMessage extends React.Component {
+    render(){
+        return React.createElement(
+            "div", null, "hello ", this.props.name
+        ); // 요론식으로 사용 가능
+    }
+}
+
+2. Component 기반
+여러 부분을 분할해서 코드의 재사용성과 유지보수성을 증가 시켜 줌
+HTML 코드를 부분 부분 파일로 담아서 수정시 그 부분만 수정하면 됨
+
+3.Virtual DOM 가상 돔
+
+DOM은 Document Object Model 단어 그 대로 문서 객체 모델이다.
+HTML 단위 하나하나를 객체로 생각한 모델 
+
+DOM은 트리구조로 되어있다. 자식 구조를 수정하면 그에 따른 부모구조들의 수정이 불가피해
+물필요한 연산이 매번 일어난다.
+
+이를 해결하기 위해 가상돔이 등장.
+가상돔은 변화를 미리 인지해 변화시킨다. 가상돔은 바뀌지 않은 부분과 
+바뀐부분을 자동으로 감지해 업데이트 시켜준다. 
+
