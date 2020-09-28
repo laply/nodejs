@@ -1,0 +1,14 @@
+extends layout
+
+block content
+  #main
+    #title onlineMemo
+    #write 
+      .left
+        input#author.author(type='text' placeholder='memo name')
+      .right
+        textarea(placeholder='enter data')
+        br
+        input#write_button(type='button', value='write')
+    #memo
+      .item
