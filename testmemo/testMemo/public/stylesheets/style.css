@@ -47,6 +47,7 @@ a {
 }
 
 #write textarea{
+	border: 1px solid #ccc;
 	width: 630px;
 	height: 110px;
 	float: right;
