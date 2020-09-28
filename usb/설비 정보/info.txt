@@ -1,0 +1,51 @@
+
+1. 대체 가능 설비 정보 
+
+1) 베어본 pc :: 센서와 bluetooth 연동
+
+[MSI] Cubi N 4000 (베어본) [ 159,000 ]
+인텔 / 셀러론 / 제미니레이크 / N4000 (1.1GHz) / DDR4 / 메모리 미포함 / HDD:저장장치 미포함 / UHD 그래픽스 600 
+/ 1Gbps 유선랜 / 802.11ac 무선랜 / 블루투스 / HDMI / D-SUB / USB 3.0 / 베사홀 / 외장 어댑터 / 미니PC / 465g
+https://www.devicemart.co.kr/goods/view?no=12523388
+
+[INTEL] NUC7CJYH (베어본 / 기본제품) (베어본 / 기본제품) (베어본 / 기본제품) [ 199,000 ]
+인텔 셀러론 J4005 (2.0~2.7GHz) / DDR4 / RAM미포함 / 저장장치미포함 / 인텔 UHD 그래픽스 600 / HDMI / USB3.0 / LAN / 블루투스 / WiFi /
+카드리더기 / 베어본(램/저장장치미포함) / 인텔셀러론 / 운영체제미포함
+https://www.devicemart.co.kr/goods/view?no=12218997
+
+[GIGABYTE] BRIX GB-BACE-3160 피씨디렉트 (4GB) (4GB, SSD 128GB) [ 240,500 ]
+인텔 셀러론 J3160 (2.24G) / DDR3L 4GB / SSD 128GB / 인텔 그래픽스 / HDMI / D-SUB / USB3.0 / 카드리더기 / LAN
+
+https://www.devicemart.co.kr/goods/view?no=1338172
+
+[젝스컴퍼니] 산업용 미니PC JECS-J1900B [RAM 4GB] (저장장치) 장착 (RAM 4GB / SSD 64GB) [ 297,000 ]
+
+베어본 (램 / 저장장치 포함) / 인텔 셀러론 J1900 / DDR3 / 4GB / SSD (mSATA) / SSD 64GB / 인텔 그래픽스 (VGA 미장착) / 운영체제 미포함 / D-SUB / HDMI / USB3.0 / USB2.0 / LAN
+
+https://www.devicemart.co.kr/goods/view?no=10966821
+
+http://prod.danawa.com/list/?cate=1137278 // 기타 
+
+
+
+2. 통신 가능 센서
+
+올인원 센서 
+[한진데이타] RS232C/RS485지원 온/습도, PM2.5 미세먼지, 조도 통합 환경모니터링 모듈 
+
+모든 센서 포함 시 [185,000]
+
+https://www.devicemart.co.kr/goods/view?no=12551919
+
+
+[SMG] Arduino NANO 아두이노 나노 호환보드 FT232RL [SZH-EK017] [ 6,000 ]
+통신 센서 부분 장착 가능한 보드
+https://www.devicemart.co.kr/goods/view?no=1265700
+
+[OEM] 블루투스 직렬포트 모듈 HC-06 (DIP) [SZH-EK010] [ 4,500 ]
+블루투스 모듈 
+https://www.devicemart.co.kr/goods/view?no=1278220
+
+[SMG] ESP8266 시리얼 와이파이 모듈 ESP-01 (DIP) [SZH-EK051] [ 2,400 ]
+wifi 모듈
+https://www.devicemart.co.kr/goods/view?no=1328949

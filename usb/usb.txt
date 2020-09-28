@@ -1,0 +1,128 @@
+USB 
+
+Host - Device
+
+Protocol
+표준 문서에는 USB의 데이터 교환 BUS transaction
+
+start
+Host >[USB Packet == Token Packet]> Device
+
+transaction의 방향, Device주소, EndPoint의 숫자
+
+통신 
+호스트 > 디바이스 
+디바이스 > 호스트
+
+Token Packet > Data Transfer > Hand Shake
+
+Transaction | 데이터 전송 OR   | success
+Device      | 데이터 none 전송 | fail
+EndPoint    |
+
+전송 모델 Pipe // socket
+Pipe stream과 Message 2 종류
+
+디바이스는 Pipe를 여러개 가질수 있음 
+
+USB 기본적인 통신 타입 4 가지
+
+PIPE는 아래 통
+1. Control Transfers : 
+    디바이스를 호스트에 연결했을 때, 설정하는 곳에 사용, 모든 디바이스에 공통사항이며,
+    EP0를 사용해야합니다.
+    
+2. Bulk Data Transfers: 
+    대량의 데이터를 전송할 때 사용된다. MSD, printer, scanner 등에 사용
+
+3.Interrupt Data Transfers: 
+    알맞은때, 신뢰할 만한 데이터를 보낼 때 사용한다. 
+
+4.Isochornos Data Transfers
+    주기적으로 전송되는 데이터에 사용된다. 전송지연과 대역폭이 미리 설정됨. 실시간 스트리밍
+
+
+Packet의 구조 
+
+var Token = {
+    field : ['PID', 'ADDR', 'ENDP', 'CRC5'],
+    Bits : [8, 7, 4, 5],
+}
+var DataPacket = {
+    field : ['PID', 'DATA', 'CRC16'],
+    Bits : [8, 0-8192, 5],
+}
+var HandShake = {
+    field : ['PID'],
+    Bits : [8],
+}
+
+PID == Packet Id
+현재 패킷의 종류룰 나타내는 필드 
+
+에러를 체크하기위해 보수를 넣음 
+0 - 3 bit 4 - 7 bit 
+
+token Out 0001B 
+
+PID는 111000001b 가 된다. 
+0001의 보수 > 1110을 붙임 
+
+
+Token Packet >> 
+Token Packet으로 정의된 PID는 OUT / IN / SOF / SETUP 이다.
+
+OUT : Host -> Device
+IN  : Device -> Host
+
+SOF : start of frame (버스 타이밍 정보가 필요할때 사용) // 일단 무시
+SETUP : Host가 Device 사이의 Pipe를 SETUP 하기 위한 Token Packet
+
+Data Packet >>
+Data 전송용 Packet. Data Packet 으로 정의된 PID는 DATA0 / DATA1 / DATA2 / MDATA
+
+DATA2, MDATA : High-speed 에 사용되므로 필요하지 않음 
+DATA0, Data1 : Full-speed Data 전송에 필요하다. 
+
+연속된 데이터를 보낼 때, 데이터의 유효성을 확보하기위해 synchronization 하기 때문이다.
+데이터 synchronization은 트렌시버, 리시버가 PID를 토글하는 것으로 이루어진다. 
+
+receiver는 데이터를 받을 수 있는 상태고 data PID가 정확할 때만 PID를 토글하고
+transciver는 유효한 ACK HandShake를 받았을 때에만 PIO<0>을 토글한다.
+그러니까 연속 데이터를 보낼때, PID의 첫번째 비트가 계속 토글되어야 한다. 
+즉, Data0 <-> Data1이 교대로 전송되어야한다.
+
+HandShake Packet >>
+1 byte로 PID만 전송하면된다. ACK / NAK / STALL/ NYET
+
+ACK | NAC 긍정과 부정 
+
+데이터를 잘 받았으면 ACK
+못받거나 에러가 있으면 NAK
+
+STALL 지연
+Device의 EndPoint가 Halt 되어있거나 Control Pipe 요청을 지원하지 않는경우를 나타냄
+
+NYET 아직 응답이 없는 상태 (허브에서 사용 // High-speed)
+
+
+Device state
+
+Attached 
+Powered
+default
+Address
+configured
+suspend
+
+
+Attached (연결)
+powered ()
+
+
+
+
+
+
+
+
