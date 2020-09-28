@@ -165,4 +165,4 @@ var load = function(){
             });
         });
     }
-}
+};
